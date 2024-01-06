@@ -9,8 +9,8 @@ let getComputerChoice = () => {
         return 'scissors';
 }
 
-let getPlayerSelection = () => {
-    let selection = prompt('Enter rock, paper or scissors!')
+let getPlayerSelection = (a) => {
+    let selection = prompt('(' + a + ') Enter rock, paper or scissors!')
     selection = selection.toLowerCase();
 
     while (! (selection === 'rock' || selection === 'paper' || selection === 'scissors'))
@@ -48,9 +48,14 @@ let singleRound = (playerSelection, computerSelection) => {
 let game = () => {
     for(let i = 0; i<5; i++)
     {
-        choice = getPlayerSelection();
+        choice = getPlayerSelection(i);
         console.log(singleRound(choice,getComputerChoice()));
     }
+    prompt('NICE, check the console for the results')
 }
 
 game();
+
+const a = 'hello';
+const b = 'worod';
+
