@@ -1,61 +1,57 @@
-let getComputerChoice = () => {
-//return 'rock', 'paper', 'or scissors'
-    let random = Math.floor(Math.random()*3);
-    if (random === 0) 
-        return 'rock';
-    else if(random === 1)
-        return 'paper';
-    else 
-        return 'scissors';
+let getComputerChoice = () =>{
+    let randomNum = Math.floor(Math.random()*3);
+
+    if(randomNum === 0){ return 'rock'; }
+    else if(randomNum === 1){ return 'scissors'; }
+    return 'paper';
 }
 
-let getPlayerSelection = (a) => {
-    let selection = prompt('(' + a + ') Enter rock, paper or scissors!')
-    selection = selection.toLowerCase();
-
-    while (! (selection === 'rock' || selection === 'paper' || selection === 'scissors'))
-        selection = prompt('That was invalid, please enter rock, paper or scissors!')
-    return selection;
+let resultMessage = (result, playerChoice, computerChoice) =>
+{
+    if (result === 'tie')
+    { console.log('Tie!!') }
+    else if(result === 'win')
+    { console.log('You win! '+ playerChoice + ' beats ' + computerChoice + '!'); }
+    else if(result === 'lose')
+    { console.log('You lose! '+ computerChoice + ' beats ' + playerChoice + '!'); }
+    else
+    { console.log('send the right thing! >:(')}
 }
 
-let singleRound = (playerSelection, computerSelection) => {
-    let result;
-
-    if (playerSelection === computerSelection){
-        result = 'Tie';
-    }
-    else if(playerSelection = 'rock'){
-        if (computerSelection = 'scissors')
-            result = 'You win! Rock beats scissors!';
-        else    
-            result = 'You lose! Paper beats rock!';
-    }
-    else if(playerSelection = 'scissors'){
-        if (computerSelection = 'paper')
-            result = 'You win! Scissors beats paper!';
-        else
-            result = 'You lose! Rock beats scissor!'; 
-    }
-    else{
-        if(computerSelection = 'rock')
-            result = 'You win! Paper beats rock!';
-        else   
-            result = 'You lose! Scissors beat paper!';
-    }
-        return result;
+let gameLogic = (left, right) =>{
+    if (left === right)
+        { return 'tie' }
+    else if((left === 'rock' && right === 'scissors') || left === 'scissors' && right === 'paper' || left === 'paper' && right ==='rock' )
+        { return 'win' }
+    else
+        { return 'lose' }
 }
 
-let game = () => {
-    for(let i = 0; i<5; i++)
+let singleRound=(playerChoice, computerChoice) =>{
+    return gameLogic(playerChoice,computerChoice);
+}
+
+let getPlayerChoice = () =>
+{
+    let playerChoice = prompt('enter rock paper or scissors');
+    playerChoice = playerChoice.toLowerCase();
+    while(!(playerChoice === 'rock' || playerChoice === 'scissors' || playerChoice === 'paper'))
     {
-        choice = getPlayerSelection(i);
-        console.log(singleRound(choice,getComputerChoice()));
+        playerChoice = prompt('eehh enter rock paper or scissors or be here forever! ' + playerChoice)      
     }
-    prompt('NICE, check the console for the results')
+    return playerChoice;
 }
 
-game();
+let playerChoice = getPlayerChoice();
 
-const a = 'hello';
-const b = 'worod';
+let game =(playerChoice,computerChoice)=>
+{
+    for (let round = 1; round <= 7; round++)
+    {
+        computerChoice = getComputerChoice();
+        resultMessage(gameLogic(playerChoice,computerChoice), playerChoice,computerChoice)
+    }
+}
 
+
+game(playerChoice);
