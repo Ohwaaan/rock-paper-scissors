@@ -46,7 +46,7 @@ let playerChoice = getPlayerChoice();
 
 let game =(playerChoice,computerChoice)=>
 {
-    for (let round = 1; round <= 7; round++)
+    for (let round = 1; round <= 1; round++)
     {
         computerChoice = getComputerChoice();
         resultMessage(gameLogic(playerChoice,computerChoice), playerChoice,computerChoice)
