@@ -37,12 +37,12 @@ let getPlayerChoice = () =>
     playerChoice = playerChoice.toLowerCase();
     while(!(playerChoice === 'rock' || playerChoice === 'scissors' || playerChoice === 'paper'))
     {
-        playerChoice = prompt('eehh enter rock paper or scissors or be here forever! ' + playerChoice)      
+        playerChoice = prompt('eehh enter rock paper or scissors or be here forever! You entered: ' + playerChoice)      
     }
     return playerChoice;
 }
 
-let playerChoice = getPlayerChoice();
+let playerChoice = getPlayerChoice;
 
 let game =(playerChoice,computerChoice)=>
 {
@@ -54,4 +54,15 @@ let game =(playerChoice,computerChoice)=>
 }
 
 
-game(playerChoice);
+
+let rock = document.querySelector('.rock');
+let paper = document.querySelector('.paper');
+let scissors = document.querySelector('.scissors');
+
+let newPlayerChoice =(choice)=>
+{playerChoice = choice;}
+
+rock.addEventListener('click',newPlayerChoice('rock'));
+paper.addEventListener('click',newPlayerChoice('paper'));
+scissors.addEventListener('click',newPlayerChoice('scissors'));
+console.log(playerChoice);
