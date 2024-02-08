@@ -1,3 +1,5 @@
+let playerChoice;
+let result;
 let getComputerChoice = () =>{
     let randomNum = Math.floor(Math.random()*3);
 
@@ -13,56 +15,32 @@ let resultMessage = (result, playerChoice, computerChoice) =>
     else if(result === 'win')
     { console.log('You win! '+ playerChoice + ' beats ' + computerChoice + '!'); }
     else if(result === 'lose')
-    { console.log('You lose! '+ computerChoice + ' beats ' + playerChoice + '!'); }
+    { console.log('You lose! '+ playerChoice + ' loses to ' + computerChoice + '!'); }
     else
     { console.log('send the right thing! >:(')}
 }
 
 let gameLogic = (left, right) =>{
     if (left === right)
-        { return 'tie' }
+        { result = 'tie' }
     else if((left === 'rock' && right === 'scissors') || left === 'scissors' && right === 'paper' || left === 'paper' && right ==='rock' )
-        { return 'win' }
+        { result ='win' }
     else
-        { return 'lose' }
+        { result ='lose' }
+    return result;
 }
 
-let singleRound=(playerChoice, computerChoice) =>{
-    return gameLogic(playerChoice,computerChoice);
+let playRound = (playerChoice) =>{
+    let computerChoice = getComputerChoice();
+    let result = gameLogic(playerChoice,computerChoice);
+
+    resultMessage(result,playerChoice,computerChoice);
 }
-
-let getPlayerChoice = () =>
-{
-    let playerChoice = prompt('enter rock paper or scissors');
-    playerChoice = playerChoice.toLowerCase();
-    while(!(playerChoice === 'rock' || playerChoice === 'scissors' || playerChoice === 'paper'))
-    {
-        playerChoice = prompt('eehh enter rock paper or scissors or be here forever! You entered: ' + playerChoice)      
-    }
-    return playerChoice;
-}
-
-let playerChoice = getPlayerChoice;
-
-let game =(playerChoice,computerChoice)=>
-{
-    for (let round = 1; round <= 1; round++)
-    {
-        computerChoice = getComputerChoice();
-        resultMessage(gameLogic(playerChoice,computerChoice), playerChoice,computerChoice)
-    }
-}
-
-
 
 let rock = document.querySelector('.rock');
 let paper = document.querySelector('.paper');
 let scissors = document.querySelector('.scissors');
 
-let newPlayerChoice =(choice)=>
-{playerChoice = choice;}
-
-rock.addEventListener('click',newPlayerChoice('rock'));
-paper.addEventListener('click',newPlayerChoice('paper'));
-scissors.addEventListener('click',newPlayerChoice('scissors'));
-console.log(playerChoice);
+rock.addEventListener('click',function(){playRound('rock')})
+paper.addEventListener('click',function(){playRound('paper')})
+scissors.addEventListener('click',function(){playRound('scissors')})
