@@ -1,5 +1,3 @@
-let playerChoice;
-let result;
 let getComputerChoice = () =>{
     let randomNum = Math.floor(Math.random()*3);
 
@@ -11,16 +9,17 @@ let getComputerChoice = () =>{
 let resultMessage = (result, playerChoice, computerChoice) =>
 {
     if (result === 'tie')
-    { console.log('Tie!!') }
+    { printResult('tie') }
     else if(result === 'win')
-    { console.log('You win! '+ playerChoice + ' beats ' + computerChoice + '!'); }
+    { printResult('You win! '+ playerChoice + ' beats ' + computerChoice + '!'); }
     else if(result === 'lose')
-    { console.log('You lose! '+ playerChoice + ' loses to ' + computerChoice + '!'); }
+    { printResult('You lose! '+ playerChoice + ' loses to ' + computerChoice + '!'); }
     else
     { console.log('send the right thing! >:(')}
 }
 
 let gameLogic = (left, right) =>{
+    let result;
     if (left === right)
         { result = 'tie' }
     else if((left === 'rock' && right === 'scissors') || left === 'scissors' && right === 'paper' || left === 'paper' && right ==='rock' )
@@ -33,13 +32,21 @@ let gameLogic = (left, right) =>{
 let playRound = (playerChoice) =>{
     let computerChoice = getComputerChoice();
     let result = gameLogic(playerChoice,computerChoice);
-
+    
     resultMessage(result,playerChoice,computerChoice);
+    test();
 }
 
-let rock = document.querySelector('.rock');
-let paper = document.querySelector('.paper');
+let printResult = (result) =>{
+    const content = document.createElement('div');
+    content.textContent = result;
+    results.appendChild(content);
+}
+
+let rock     = document.querySelector('.rock');
+let paper    = document.querySelector('.paper');
 let scissors = document.querySelector('.scissors');
+let results  = document.querySelector('.results');
 
 rock.addEventListener('click',function(){playRound('rock')})
 paper.addEventListener('click',function(){playRound('paper')})
