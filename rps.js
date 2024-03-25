@@ -6,6 +6,30 @@ let getComputerChoice = () =>{
     return 'paper';
 }
 
+let gameLogic = (left, right) =>{
+    let result;
+    if (left === right)
+        { result = 'tie' }
+    else if((left === 'rock' && right === 'scissors') || left === 'scissors' && right === 'paper' || left === 'paper' && right ==='rock' )
+        { result ='win' }
+    else
+        { result ='lose' }
+    return result;
+}
+
+let printResultMessage = (resultMessage) =>{
+    const content = document.createElement('div');
+    content.textContent = resultMessage;
+    results.appendChild(content);
+}
+
+let updateScore = (result) =>{
+    if (result === 'win')
+    { playerScore +=1; }
+    else
+    { computerScore +=1; }  
+}
+
 let resultMessage = (result, playerChoice, computerChoice) =>
 {
     if (result === 'tie')
@@ -24,38 +48,6 @@ let resultMessage = (result, playerChoice, computerChoice) =>
     { console.log('send the right thing! >:(')}
 }
 
-let gameLogic = (left, right) =>{
-    let result;
-    if (left === right)
-        { result = 'tie' }
-    else if((left === 'rock' && right === 'scissors') || left === 'scissors' && right === 'paper' || left === 'paper' && right ==='rock' )
-        { result ='win' }
-    else
-        { result ='lose' }
-    return result;
-}
-
-let playRound = (playerChoice) =>{
-    let computerChoice = getComputerChoice();
-    let result = gameLogic(playerChoice,computerChoice);
-    
-    resultMessage(result,playerChoice,computerChoice);
-    winOrlose();
-}
-
-let printResultMessage = (resultMessage) =>{
-    const content = document.createElement('div');
-    content.textContent = resultMessage;
-    results.appendChild(content);
-}
-
-let updateScore = (result) =>{
-    if (result === 'win')
-    { playerScore +=1; }
-    else
-    { computerScore +=1; }  
-}
-
 let winOrlose = ()=>{
     if (playerScore === 5){
         printResultMessage('OMG YOURE THE VICTOR YOU GOT 5 WINS!!! The game will now reset!')
@@ -68,6 +60,14 @@ let winOrlose = ()=>{
         playerScore = 0;
         computerScore = 0;
     }
+}
+
+let playRound = (playerChoice) =>{
+    let computerChoice = getComputerChoice();
+    let result = gameLogic(playerChoice,computerChoice);
+    
+    resultMessage(result,playerChoice,computerChoice);
+    winOrlose();
 }
 
 let rock     = document.querySelector('.rock');
